@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from 'vue';
-import { useDir } from '@/layout/composables/direction';
+import { useLayout } from '@/layout/composables/layout';
 
 import AppMenuItem from './AppMenuItem.vue';
 
-const { dir } = useDir();
+const { layoutConfig } = useLayout();
 
 const model = ref([
     {
@@ -168,7 +168,7 @@ const model = ref([
 </script>
 
 <template>
-    <ul class="layout-menu" :dir="dir">
+    <ul class="layout-menu" :dir="layoutConfig.dir">
         <template v-for="(item, i) in model" :key="item">
             <app-menu-item v-if="!item.separator" :item="item" :index="i"></app-menu-item>
             <li v-if="item.separator" class="menu-separator"></li>

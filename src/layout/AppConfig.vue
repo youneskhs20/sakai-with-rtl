@@ -6,7 +6,6 @@ import Sidebar from 'primevue/sidebar';
 
 import { computed, ref } from 'vue';
 import { useLayout } from '@/layout/composables/layout';
-import { useDir } from '@/layout/composables/direction';
 
 defineProps({
     simple: {
@@ -17,15 +16,14 @@ defineProps({
 const scales = ref([12, 13, 14, 15, 16]);
 const visible = ref(false);
 
-const { changeThemeSettings, setScale, layoutConfig } = useLayout();
-const { dir, setDirClasses } = useDir();
+const { changeThemeSettings, setScale, layoutConfig, setDirClasses } = useLayout();
 
 const configButtonClass = computed(() => {
     return setDirClasses('layout-config-button-ltr', 'layout-config-button-rtl');
 });
 
 const sideBarPosition = computed(() => {
-    return dir.value === 'ltr' ? 'right' : 'left';
+    return layoutConfig.dir.value === 'ltr' ? 'right' : 'left';
 });
 
 const onConfigButtonClick = () => {
@@ -104,7 +102,7 @@ const applyScale = () => {
             <h5>Ripple Effect</h5>
             <InputSwitch v-model="layoutConfig.ripple.value"></InputSwitch>
             <h5>RTL</h5>
-            <InputSwitch v-model="dir" false-value="ltr" true-value="rtl"></InputSwitch>
+            <InputSwitch v-model="layoutConfig.dir.value" false-value="ltr" true-value="rtl"></InputSwitch>
         </template>
 
         <h5>Bootstrap</h5>

@@ -2,12 +2,10 @@
 import { ref, onBeforeMount, watch, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useLayout } from '@/layout/composables/layout';
-import { useDir } from '@/layout/composables/direction';
 
-const { dir, setDirClasses } = useDir();
 const route = useRoute();
 
-const { layoutConfig, layoutState, setActiveMenuItem, onMenuToggle } = useLayout();
+const { layoutConfig, layoutState, setActiveMenuItem, onMenuToggle, setDirClasses } = useLayout();
 
 const props = defineProps({
     item: {
@@ -104,7 +102,7 @@ const menuItemClass = computed(() => {
 
         <Transition v-if="item.items && item.visible !== false" name="layout-submenu">
             <ul v-show="root ? true : isActiveMenu" class="layout-submenu">
-                <app-menu-item v-for="(child, i) in item.items" :key="child" :dir="dir" :index="i" :item="child" :parentItemKey="itemKey" :root="false"></app-menu-item>
+                <app-menu-item v-for="(child, i) in item.items" :key="child" :dir="layoutConfig.dir" :index="i" :item="child" :parentItemKey="itemKey" :root="false"></app-menu-item>
             </ul>
         </Transition>
     </li>

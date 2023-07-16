@@ -7,7 +7,8 @@ const layoutConfig = reactive({
     menuMode: 'static',
     theme: 'lara-light-indigo',
     scale: 14,
-    activeMenuItem: null
+    activeMenuItem: null,
+    dir: 'rtl'
 });
 
 const layoutState = reactive({
@@ -45,9 +46,17 @@ export function useLayout() {
         }
     };
 
+    const setDirClasses = (ltrClass, rtlClass, others) => {
+        return {
+            [ltrClass]: layoutConfig.dir === 'ltr',
+            [rtlClass]: layoutConfig.dir === 'rtl',
+            ...others
+        };
+    };
+
     const isSidebarActive = computed(() => layoutState.overlayMenuActive || layoutState.staticMenuMobileActive);
 
     const isDarkTheme = computed(() => layoutConfig.darkTheme);
 
-    return { layoutConfig: toRefs(layoutConfig), layoutState: toRefs(layoutState), changeThemeSettings, setScale, onMenuToggle, isSidebarActive, isDarkTheme, setActiveMenuItem };
+    return { layoutConfig: toRefs(layoutConfig), layoutState: toRefs(layoutState), changeThemeSettings, setScale, onMenuToggle, isSidebarActive, isDarkTheme, setActiveMenuItem, setDirClasses };
 }

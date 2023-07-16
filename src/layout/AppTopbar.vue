@@ -2,18 +2,12 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useLayout } from '@/layout/composables/layout';
 import { useRouter } from 'vue-router';
-// import { storeToRefs } from 'pinia';
-// import { useDirection } from '@/store/direction.js';
-const { layoutConfig, onMenuToggle } = useLayout();
-import { useDir } from '@/layout/composables/direction.js';
 
-const { setDirClasses, dir } = useDir();
+const { layoutConfig, onMenuToggle, setDirClasses } = useLayout();
+
 const outsideClickListener = ref(null);
 const topbarMenuActive = ref(false);
 const router = useRouter();
-
-// const direction = useDirection();
-// const { dir } = storeToRefs(direction);
 
 onMounted(() => {
     bindOutsideClickListener();
@@ -66,7 +60,7 @@ const isOutsideClicked = (event) => {
 </script>
 
 <template>
-    <div :dir="dir" class="layout-topbar">
+    <div :dir="layoutConfig.dir.value" class="layout-topbar">
         <router-link to="/" class="layout-topbar-logo">
             <img :src="logoUrl" alt="logo" />
             <span>SAKAI</span>
