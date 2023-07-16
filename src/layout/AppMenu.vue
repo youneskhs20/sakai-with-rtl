@@ -1,7 +1,10 @@
 <script setup>
 import { ref } from 'vue';
+import { useDir } from '@/layout/composables/direction';
 
 import AppMenuItem from './AppMenuItem.vue';
+
+const { dir } = useDir();
 
 const model = ref([
     {
@@ -165,11 +168,12 @@ const model = ref([
 </script>
 
 <template>
-    <ul class="layout-menu">
+    <ul class="layout-menu" :dir="dir">
         <template v-for="(item, i) in model" :key="item">
             <app-menu-item v-if="!item.separator" :item="item" :index="i"></app-menu-item>
             <li v-if="item.separator" class="menu-separator"></li>
         </template>
+
         <li>
             <a href="https://www.primefaces.org/primeblocks-vue/#/" target="_blank">
                 <img src="/layout/images/banner-primeblocks.png" alt="Prime Blocks" class="w-full mt-3" />

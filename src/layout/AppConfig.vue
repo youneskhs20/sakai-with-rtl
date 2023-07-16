@@ -4,8 +4,9 @@ import Button from 'primevue/button';
 import InputSwitch from 'primevue/inputswitch';
 import Sidebar from 'primevue/sidebar';
 
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useLayout } from '@/layout/composables/layout';
+import { useDir } from '@/layout/composables/direction';
 
 defineProps({
     simple: {
@@ -17,6 +18,15 @@ const scales = ref([12, 13, 14, 15, 16]);
 const visible = ref(false);
 
 const { changeThemeSettings, setScale, layoutConfig } = useLayout();
+const { dir, setDirClasses } = useDir();
+
+const configButtonClass = computed(() => {
+    return setDirClasses('layout-config-button-ltr', 'layout-config-button-rtl');
+});
+
+const sideBarPosition = computed(() => {
+    return dir.value === 'ltr' ? 'right' : 'left';
+});
 
 const onConfigButtonClick = () => {
     visible.value = !visible.value;
@@ -49,11 +59,11 @@ const applyScale = () => {
 </script>
 
 <template>
-    <button class="layout-config-button p-link" type="button" @click="onConfigButtonClick()">
+    <button class="layout-config-button p-link" :class="configButtonClass" type="button" @click="onConfigButtonClick()">
         <i class="pi pi-cog"></i>
     </button>
 
-    <Sidebar v-model:visible="visible" position="right" :transitionOptions="'.3s cubic-bezier(0, 0, 0.2, 1)'" class="layout-config-sidebar w-20rem">
+    <Sidebar v-model:visible="visible" :position="sideBarPosition" :transitionOptions="'.3s cubic-bezier(0, 0, 0.2, 1)'" class="layout-config-sidebar w-20rem">
         <h5>Scale</h5>
         <div class="flex align-items-center">
             <Button icon="pi pi-minus" type="button" @click="decrementScale()" class="p-button-text p-button-rounded w-2rem h-2rem mr-2" :disabled="layoutConfig.scale.value === scales[0]"></Button>
@@ -93,6 +103,8 @@ const applyScale = () => {
 
             <h5>Ripple Effect</h5>
             <InputSwitch v-model="layoutConfig.ripple.value"></InputSwitch>
+            <h5>RTL</h5>
+            <InputSwitch v-model="dir" false-value="ltr" true-value="rtl"></InputSwitch>
         </template>
 
         <h5>Bootstrap</h5>

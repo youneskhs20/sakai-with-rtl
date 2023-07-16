@@ -67,8 +67,7 @@ onMounted(() => {
 
         <h5>List of Icons</h5>
         <p>
-            Here is the current list of PrimeIcons, more icons are added periodically. You may also <a href="https://github.com/primefaces/primeicons/issues" class="font-medium text-primary hover:underline">request new icons</a> at the issue
-            tracker.
+            Here is the current list of PrimeIcons, more icons are added periodically. You may also <a href="https://github.com/primefaces/primeicons/issues" class="font-medium text-primary hover:underline">request new icons</a> at the issue tracker.
         </p>
 
         <InputText v-model="filter" class="w-full p-3 mt-3 mb-5" placeholder="Search an icon" />

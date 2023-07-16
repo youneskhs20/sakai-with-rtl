@@ -5,8 +5,10 @@ import AppFooter from './AppFooter.vue';
 import AppSidebar from './AppSidebar.vue';
 import AppConfig from './AppConfig.vue';
 import { useLayout } from '@/layout/composables/layout';
+import { useDir } from '@/layout/composables/direction';
 
 const { layoutConfig, layoutState, isSidebarActive } = useLayout();
+const { dir, setDirClasses } = useDir();
 
 const outsideClickListener = ref(null);
 
@@ -31,6 +33,15 @@ const containerClass = computed(() => {
         'p-ripple-disabled': !layoutConfig.ripple.value
     };
 });
+
+const sideBarClass = computed(() => {
+    return setDirClasses('layout-sidebar-ltr', 'layout-sidebar-rtl');
+});
+
+const mainContentClass = computed(() => {
+    return setDirClasses('layout-main-container-ltr', 'layout-main-container-rtl');
+});
+
 const bindOutsideClickListener = () => {
     if (!outsideClickListener.value) {
         outsideClickListener.value = (event) => {
@@ -60,10 +71,10 @@ const isOutsideClicked = (event) => {
 <template>
     <div class="layout-wrapper" :class="containerClass">
         <app-topbar></app-topbar>
-        <div class="layout-sidebar">
+        <div class="layout-sidebar" :class="sideBarClass" :dir="dir">
             <app-sidebar></app-sidebar>
         </div>
-        <div class="layout-main-container">
+        <div class="layout-main-container" :class="mainContentClass">
             <div class="layout-main">
                 <router-view></router-view>
             </div>

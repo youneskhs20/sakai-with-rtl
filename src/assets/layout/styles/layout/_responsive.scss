@@ -10,14 +10,28 @@
 @media (min-width: 992px) {
     .layout-wrapper {
         &.layout-overlay {
-            .layout-main-container {
+            .layout-main-container-ltr {
                 margin-left: 0;
                 padding-left: 2rem;
             }
 
-            .layout-sidebar {
+            .layout-main-container-rtl {
+                margin-right: 0;
+                padding-right: 2rem;
+            }
+
+            .layout-sidebar-ltr {
                 transform: translateX(-100%);
                 left: 0;
+                top: 0;
+                height: 100vh;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+            
+            .layout-sidebar-rtl {
+                transform: translateX(100%);
+                right: 0;
                 top: 0;
                 height: 100vh;
                 border-top-left-radius: 0;
@@ -32,19 +46,33 @@
         }
 
         &.layout-static {
-            .layout-main-container {
+            .layout-main-container-ltr {
                 margin-left: 300px;
             }
 
+            .layout-main-container-rtl {
+                margin-right: 300px;
+            }
+
             &.layout-static-inactive {
-                .layout-sidebar {
+                .layout-sidebar-ltr {
                     transform: translateX(-100%);
                     left: 0;
                 }
 
-                .layout-main-container {
+                .layout-sidebar-rtl {
+                    transform: translateX(100%);
+                    right: 0;
+                }
+
+                .layout-main-container-ltr {
                     margin-left: 0;
                     padding-left: 2rem;
+                }
+
+                .layout-main-container-rtl {
+                    margin-right: 0;
+                    padding-right: 2rem;
                 }
             }
         }
@@ -61,18 +89,32 @@
     }
 
     .layout-wrapper {
-        .layout-main-container {
+        .layout-main-container-ltr {
             margin-left: 0;
             padding-left: 2rem;
         }
 
-        .layout-sidebar {
+        .layout-main-container-rtl {
+            margin-right: 0;
+            padding-right: 2rem;
+        }
+
+        .layout-sidebar-ltr {
             transform: translateX(-100%);
             left: 0;
             top: 0;
             height: 100vh;
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
+        }
+
+        .layout-sidebar-rtl {
+            transform: translateX(100%);
+            right: 0;
+            top: 0;
+            height: 100vh;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
         }
 
         .layout-mask {
